@@ -26,7 +26,7 @@ abstract class EmployeeAccount {
         return penalty;
     }
     public void setPenalty(double penalty) {
-        this.penalty
+        this.penalty;
     }
     public abstract double calculateNetSalary();
 }
