@@ -10,6 +10,7 @@ package Bank;
  */ 
 
 import java.util.ArrayList;
+import com.mycompany.tubes_bank_sytem.CustomerAccount;
 
 public class Bank {
     private String bankName;
@@ -34,7 +35,7 @@ public class Bank {
     
     public void closeAccount(CustomerAccount account){
         account.pop(account);
-        System.out.println("Account under the name of " + account +"Successfully deleted");
+        System.out.println("Account under the name of " + account +" successfully deleted");
         
     }
     

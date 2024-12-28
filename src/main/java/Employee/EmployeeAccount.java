@@ -8,7 +8,7 @@ package Employee;
  *
  * @author LEGION
  */
-abstract class EmployeeAccount {
+public abstract class EmployeeAccount {
     private double salary;
     private double penalty;
     
