@@ -23,6 +23,6 @@ public class BankManager extends EmployeeAccount {
         return getSalary() - getPenalty();
     }
     public void managerBankOperations() {
-        System.out.println("Mengelola operasional bank untuk : " + employee.getName());
+        System.out.println("Managing bank operations: " + employee.getName());
     }
 }
