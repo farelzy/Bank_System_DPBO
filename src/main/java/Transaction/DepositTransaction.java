@@ -7,16 +7,16 @@ import com.mycompany.tubes_bank_sytem.CustomerAccount;
 
 /**
  *
- * @author ROG STRIX
+ * @author farelzy
  */
 class DepositTransaction extends Transaction {
-    public DepositTransaction(String transactionId, CustomerAccount account, double amount) {
-        super(transactionId, account, amount);
+    public DepositTransaction(CustomerAccount customerAccount, double balance) {
+        super(customerAccount, balance);
     }
 
     @Override
-    public void process() {
-        getAccount().setBalance(getAccount().getBalance() + getAmount());
-        System.out.println("Deposit successful. Amount deposited: " + getAmount());
+    public void process(double amount) {
+        balance += amount;
+        System.out.println("Deposit Successful: " + amount);
     }
 }
