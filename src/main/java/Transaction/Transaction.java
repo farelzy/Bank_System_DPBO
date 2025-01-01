@@ -3,34 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Transaction;
+
 import com.mycompany.tubes_bank_sytem.CustomerAccount;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author ROG STRIX
+ * @author farelzy
  */
-public abstract class Transaction {
-    private String transactionId;
-    private CustomerAccount account; //classCustomer
+abstract class Transaction {
+    protected String transactionId;
+    protected CustomerAccount customerAccount;
+    protected double balance;
     private double amount;
 
-    public Transaction(String transactionId, CustomerAccount account, double amount) {
-        this.transactionId = transactionId;
-        this.account = account;
-        this.amount = amount;
+    public Transaction(CustomerAccount customerAccount, double balance) {
+        this.transactionId = generateTransactionId();
+        this.customerAccount = customerAccount;
+        this.balance = balance;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    private String generateTransactionId() {
+        return "TXN" + ThreadLocalRandom.current().nextInt(1000, 9999);
     }
 
-    public CustomerAccount getAccount() {
-        return account;
-    }
+    public abstract void process(double amount);
+
 
     public double getAmount() {
         return amount;
     }
-
-    public abstract void process();
 }

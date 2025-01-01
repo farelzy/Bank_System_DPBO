@@ -7,20 +7,20 @@ import com.mycompany.tubes_bank_sytem.CustomerAccount;
 
 /**
  *
- * @author ROG STRIX
+ * @author farelzy
  */
 class WithdrawTransaction extends Transaction {
-    public WithdrawTransaction(String transactionId, CustomerAccount account, double amount) {
-        super(transactionId, account, amount);
+    public WithdrawTransaction(CustomerAccount customerAccount, double balance) {
+        super(customerAccount, balance);
     }
 
     @Override
-    public void process() {
-        if (getAccount().getBalance() >= getAmount()) {
-            getAccount().setBalance(getAccount().getBalance() - getAmount());
-            System.out.println("Withdrawal successful. Amount withdrawn: " + getAmount());
+    public void process(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawal Successful: " + amount);
         } else {
-            System.out.println("Insufficient balance for withdrawal.");
+            System.out.println("Insufficient Balance.");
         }
     }
 }

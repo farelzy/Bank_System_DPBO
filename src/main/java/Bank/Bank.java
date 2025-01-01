@@ -28,13 +28,12 @@ public class Bank {
         
     }
     
-    public void createAccount(CustomerAccount account){
-        account.add(account);
-        return 
+    public void createAccount(CustomerAccount Newaccount){//ganti parameter
+        account.add(Newaccount);
     }
     
-    public void closeAccount(CustomerAccount account){
-        account.pop(account);
+    public void closeAccount(CustomerAccount exisitingaccount){//ganti parameter dan pop to remove
+        account.remove(exisitingaccount);
         System.out.println("Account under the name of " + account +" successfully deleted");
         
     }
