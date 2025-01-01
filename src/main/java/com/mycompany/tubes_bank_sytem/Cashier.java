@@ -18,8 +18,7 @@ public abstract class Cashier extends EmployeeAccount {
         this.moneyIssued = 0.0;
         this.mistakes = 0;
     }
-
-    // Method untuk menarik gaji
+    
     public void withdrawPaycheck(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
@@ -30,7 +29,6 @@ public abstract class Cashier extends EmployeeAccount {
         }
     }
 
-    // Method untuk menampilkan performa berdasarkan jumlah kesalahan
     public String getPerformance() {
         if (mistakes == 0) {
             return "Excellent";
@@ -41,12 +39,10 @@ public abstract class Cashier extends EmployeeAccount {
         }
     }
 
-    // Method untuk melihat total gaji yang diterima
     public double viewTotalWage() {
         return moneyIssued;
     }
 
-    // Method untuk mencatat kesalahan
     public void recordMistake() {
         mistakes++;
         System.out.println("Mistake recorded. Total mistakes: " + mistakes);
