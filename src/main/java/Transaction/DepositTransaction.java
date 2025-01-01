@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Transaction;
+import com.mycompany.tubes_bank_sytem.CustomerAccount;
 
 /**
  *
