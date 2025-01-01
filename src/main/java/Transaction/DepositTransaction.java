@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Transaction;
-import com.mycompany.tubes_bank_sytem.CustomerAccount;
+import Account.CustomerAccount;
 
 /**
  *
  * @author farelzy
  */
-class DepositTransaction extends Transaction {
+public class DepositTransaction extends Transaction {
     public DepositTransaction(CustomerAccount customerAccount, double balance) {
         super(customerAccount, balance);
     }

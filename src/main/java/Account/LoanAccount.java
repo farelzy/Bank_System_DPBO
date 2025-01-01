@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.tubes_bank_sytem;
+package Account;
+
+import Account.CustomerAccount;
 
 /**
  *
  * @author VICTUS
  */
 public class LoanAccount extends CustomerAccount {
+
     private double loanLimit;
 
     public LoanAccount(String accountName, String accountID, double balance, double loanLimit) {
@@ -40,7 +43,11 @@ public class LoanAccount extends CustomerAccount {
     }
 
     @Override
-    public void withdraw(double amount) {
-        System.out.println("Withdraw not applicable for Loan Account.");
+    public boolean withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            return true;
+        }
+        return false;
     }
 }

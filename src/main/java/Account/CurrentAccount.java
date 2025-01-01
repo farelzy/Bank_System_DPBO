@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.tubes_bank_sytem;
+package Account;
 
 /**
  *
  * @author VICTUS
  */
 public class CurrentAccount extends CustomerAccount {
-    public CurrentAccount(String accountName, String accountID, double balance) {
+
+    public CurrentAccount(String accountName, String accountID, double balance, double par1) {
         super(accountName, accountID, balance);
     }
 
@@ -20,12 +21,11 @@ public class CurrentAccount extends CustomerAccount {
     }
 
     @Override
-    public void withdraw(double amount) {
-        if (amount <= balance) {
+    public boolean withdraw(double amount) {
+        if (balance >= amount) {
             balance -= amount;
-            System.out.println("Withdraw from Current Account: " + amount);
-        } else {
-            System.out.println("Insufficient Balance in Current Account.");
+            return true;
         }
+        return false;
     }
 }

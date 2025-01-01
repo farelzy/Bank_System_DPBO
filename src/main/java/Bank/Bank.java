@@ -10,7 +10,7 @@ package Bank;
  */ 
 
 import java.util.ArrayList;
-import com.mycompany.tubes_bank_sytem.CustomerAccount;
+import Account.CustomerAccount;
 
 public class Bank {
     private String bankName;

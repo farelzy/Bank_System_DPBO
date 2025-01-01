@@ -3,7 +3,6 @@
  */
 
 package com.mycompany.tubes_bank_sytem;
-
 /**
  *
  * @author ROG STRIX
@@ -11,6 +10,5 @@ package com.mycompany.tubes_bank_sytem;
 public class TUBES_Bank_Sytem {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
     }
 }

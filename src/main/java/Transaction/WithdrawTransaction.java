@@ -3,22 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Transaction;
-import com.mycompany.tubes_bank_sytem.CustomerAccount;
-
+import Transaction.Transaction;
+import Account.CustomerAccount;
 /**
  *
  * @author farelzy
  */
-class WithdrawTransaction extends Transaction {
+public class WithdrawTransaction extends Transaction {
     public WithdrawTransaction(CustomerAccount customerAccount, double balance) {
         super(customerAccount, balance);
     }
 
     @Override
     public void process(double amount) {
-        if (amount <= balance) {
-            balance -= amount;
+        if (amount <= customerAccount.getBalance()) {
+            customerAccount.withdraw(amount); // Panggil metode withdraw dari CustomerAccount
             System.out.println("Withdrawal Successful: " + amount);
+            System.out.println("New Balance: " + customerAccount.getBalance());
         } else {
             System.out.println("Insufficient Balance.");
         }

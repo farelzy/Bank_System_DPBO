@@ -4,14 +4,14 @@
  */
 package Transaction;
 
-import com.mycompany.tubes_bank_sytem.CustomerAccount;
+import Account.CustomerAccount;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
  * @author farelzy
  */
-abstract class Transaction {
+public abstract class Transaction {
     protected String transactionId;
     protected CustomerAccount customerAccount;
     protected double balance;
