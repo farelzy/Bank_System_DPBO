@@ -35,7 +35,7 @@ class BankManager extends EmployeeAccount {
     public void viewTotalWage() {
         System.out.println("Total wage balance: " + getBalance());
     }
-
+    
     public double getLoanGiven() {
         return loanGiven;
     }

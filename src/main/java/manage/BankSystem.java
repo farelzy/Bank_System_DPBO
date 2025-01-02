@@ -132,20 +132,24 @@ private static void customerMenu(Scanner scanner, List<CustomerAccount> accounts
                     }
                 } catch (Exception e) {
                     System.out.println("Invalid input! Please enter a number.");
-                    scanner.nextLine(); // Clear the buffer
+                    scanner.nextLine();
                 }
             }
             
             switch (userType) {
                 case 1:
-                    System.out.println("\nAccount List:");
+                    System.out.print("\nEnter Account ID: ");
+                    String accountId = scanner.next();
+
                     for (CustomerAccount account : accounts) {
-                        System.out.println("Account Name: " + account.getAccountName() +
-                                ", ID: " + account.getAccountID() +
-                                ", Balance: " + account.getBalance() +
-                                ", Interest Rate: " + percentageInterestRate(account.getInterestRate()));
+                        if (account.getAccountID().equals(accountId)) {
+                            System.out.println("Account Name: " + account.getAccountName() +
+                                    ", ID: " + account.getAccountID() +
+                                    ", Balance: " + account.getBalance() +
+                                    ", Interest Rate: " + percentageInterestRate(account.getInterestRate()));
+                    return;
                     }
-                    break;
+                }
 
                 case 2:
                     System.out.print("\nEnter Account ID: ");
