@@ -63,8 +63,8 @@ public class BankSystem {
         BankManager bankManager = new BankManager("Mike the Manager", "MGR001", "LA001", "Bank Customer", 30000.0, 5000.0, 0);
         List<Cashier> cashierAccounts = new ArrayList<>();
         Cashier cashier = new Cashier("Sarah the Cashier", "CSR001", "SA001", "Bank Customer", 20000.0, 882, 0);
-        Cashier cashier2 = new Cashier("Bill Da La Rosa", "CSR001", "CA001", "Bank Customer", 20000.0, 482, 2);
-        Cashier cashier3 = new Cashier("Erwin Dasler", "CSR001", "LA001", "Bank Customer", 20000.0, 582, 0);
+        Cashier cashier2 = new Cashier("Bill Da La Rosa", "CSR002", "CA001", "Bank Customer", 20000.0, 482, 2);
+        Cashier cashier3 = new Cashier("Erwin Dasler", "CSR003", "LA001", "Bank Customer", 20000.0, 582, 0);
         
         cashierAccounts.add(cashier);
         cashierAccounts.add(cashier2);
@@ -290,11 +290,7 @@ public class BankSystem {
 
                 case 5:
                     System.out.println("\nWithdraw Wage:");
-                    System.out.print("Enter Employee ID (Manager: " + bankManager.getId() + ", Cashiers: ");
-                    for (Cashier cashier : cashierAccounts) {
-                        System.out.print(cashier.getId() + " ");
-                    }
-                    System.out.println("): ");
+                    System.out.print("Enter Employee ID: ");
                     String employeeId = scanner.next();
 
                     if (employeeId.equals(bankManager.getId())) {
