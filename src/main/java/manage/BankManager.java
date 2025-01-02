@@ -8,7 +8,7 @@ package manage;
  *
  * @author LEGION 
  */
-class BankManager extends EmployeeAccount {
+public class BankManager extends EmployeeAccount {
     private double loanGiven;
     private int mistake;
 
@@ -20,7 +20,7 @@ class BankManager extends EmployeeAccount {
 
     public void withdrawPaycheck(double amount) {
         if (amount <= getBalance()) {
-            paycheck(-amount);
+            paycheck(-amount); // Mengurangi jumlah gaji dari saldo
             System.out.println("Withdrawn paycheck: " + amount);
         } else {
             System.out.println("Insufficient balance.");
@@ -28,7 +28,7 @@ class BankManager extends EmployeeAccount {
     }
 
     public void moneyLoaned(double amount) {
-        loanGiven += amount;
+        loanGiven += amount; // Menambahkan jumlah pinjaman ke total pinjaman
         System.out.println("Loan given. Total loans: " + loanGiven);
     }
 
@@ -42,5 +42,9 @@ class BankManager extends EmployeeAccount {
 
     public int getMistakeCount() {
         return mistake;
+    }
+
+    void withdraw(double managerWage) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

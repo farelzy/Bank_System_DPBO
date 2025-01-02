@@ -9,8 +9,8 @@ package manage;
  * @author LEGION
  */
 class Employee {
-    private String name;
-    private String id;
+    protected String name;
+    protected String id;
 
     public Employee(String name, String id) {
         this.name = name;
