@@ -102,7 +102,7 @@ public class BankSystem {
                         employeeMenu(scanner, bankManager, cashierAccounts);
                         break;
                     case 3:
-                        adminMenu(scanner, myBank, accounts, bankManager, cashier);
+                        adminMenu(scanner, myBank, accounts, bankManager, cashierAccounts);
                         break;
                     case 4:
                         System.out.println("Thank you for using the banking system!");
@@ -333,7 +333,7 @@ public class BankSystem {
     }
 }
 
-    private static void adminMenu(Scanner scanner, Bank myBank, List<CustomerAccount> accounts, BankManager bankManager, Cashier cashier) {
+    private static void adminMenu(Scanner scanner, Bank myBank, List<CustomerAccount> accounts, BankManager bankManager, List<Cashier> cashierAccounts) {
         try {
             while (true) {
                 System.out.println("\nAdmin Menu:");
@@ -432,7 +432,9 @@ public class BankSystem {
                     case 4:
                         System.out.println("\nEmployee Account List:");
                         System.out.println("Bank Manager: " + bankManager.getName() + " - ID: " + bankManager.getId());
-                        System.out.println("Cashier: " + cashier.getName() + " - ID: " + cashier.getId());
+                        for (Cashier cashier : cashierAccounts) {
+                            System.out.println("Cashier: " + cashier.getName() + " - ID: " + cashier.getId());
+                        }
                         break;
 
                     case 5:
