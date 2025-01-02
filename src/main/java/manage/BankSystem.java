@@ -352,7 +352,6 @@ public class BankSystem {
                         System.out.println("1. Current Account");
                         System.out.println("2. Saving Account");
                         System.out.println("3. Loan Account");
-                        System.out.print("Choose an option: ");
 
                         int userType = -1;
                         while (userType == -1) {
