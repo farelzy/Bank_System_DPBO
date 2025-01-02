@@ -221,7 +221,6 @@ private static void customerMenu(Scanner scanner, List<CustomerAccount> accounts
                     return;
                 case 7: 
                     System.out.println("Thank you for using the banking system!");
-                    scanner.close();
                     return;
                 default:
                     System.out.println("Invalid option!");
