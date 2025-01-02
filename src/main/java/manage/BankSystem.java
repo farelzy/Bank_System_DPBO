@@ -19,6 +19,7 @@ import Bank.Bank;
 import manage.BankManager;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
@@ -239,92 +240,92 @@ public class BankSystem {
     }
 
     private static void employerMenu(Scanner scanner, BankManager bankManager, Cashier cashier) {
-        try {
-            while (true) {
-                System.out.println("\nEmployer Menu:");
-                System.out.println("1. Show All Paycheck");
-                System.out.println("2. Show All Penalty");
-                System.out.println("3. Show All Total Wage");
-                System.out.println("4. Show Employee Performance");
-                System.out.println("5. Withdraw Wage");
-                System.out.println("8. Return to Main Menu");
-                System.out.println("9. Exit");
-                System.out.print("Choose an option: ");
-
-                int userType = -1;
-                while (userType == -1) {
-                    try {
-                        userType = scanner.nextInt();
-                        if (userType < 1 || (userType > 5 && userType != 8 && userType != 9)) {
-                            System.out.println("Invalid option! Please choose a valid number.");
-                            userType = -1;
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Invalid input! Please enter a number.");
-                        scanner.nextLine();
+    try {
+        while (true) {
+            System.out.println("\nEmployer Menu:");
+            System.out.println("1. Show All Paychecks");
+            System.out.println("2. Show All Penalties");
+            System.out.println("3. Show Total Wage");
+            System.out.println("4. Show Employee Performance");
+            System.out.println("5. Withdraw Wage");
+            System.out.println("6. Return to Main Menu");
+            System.out.print("Choose an option: ");
+            
+            int choice = -1;
+            while (choice == -1) {
+                try {
+                    choice = scanner.nextInt();
+                    if (choice < 1 || choice > 6) {
+                        System.out.println("Invalid option! Please choose a number between 1 and 6.");
+                        choice = -1;
                     }
-                }
-
-                switch (userType) {
-                    case 1:
-                        System.out.println("\nAll Employee Paychecks:");
-                        System.out.println("Bank Manager: " + bankManager.getName() + " - Paycheck: " + bankManager.getBalance());
-                        System.out.println("Cashier: " + cashier.getName() + " - Paycheck: " + cashier.getBalance());
-                        break;
-
-                    case 2:
-                        System.out.println("\nAll Employee Penalties:");
-                        System.out.println("Bank Manager: " + bankManager.getName() + " - Mistakes Count: " + bankManager.getMistakeCount());
-                        System.out.println("Cashier: " + cashier.getName() + " - Transactions Handled: " + cashier.getTransactionsHandled());
-                        break;
-
-                    case 3:
-                        System.out.println("\nAll Employee Total Wages:");
-                        double managerTotalWage = bankManager.getBalance() - bankManager.getMistakeCount() * 100;
-                        double cashierTotalWage = cashier.getBalance() + cashier.getTotalSales() * 0.01;
-                        System.out.println("Bank Manager: " + bankManager.getName() + " - Total Wage: " + managerTotalWage);
-                        System.out.println("Cashier: " + cashier.getName() + " - Total Wage: " + cashierTotalWage);
-                        break;
-
-                    case 4:
-                        System.out.println("\nEmployee Performance:");
-                        System.out.println("Bank Manager: " + bankManager.getName() + " - Loans Given: " + bankManager.getLoanGiven());
-                        System.out.println("Cashier: " + cashier.getName() + " - Transactions Handled: " + cashier.getTransactionsHandled());
-                        break;
-
-                    case 5:
-                        System.out.print("\nEnter Employee ID to Withdraw Wage: ");
-                        String employeeId = scanner.next();
-
-                        if (employeeId.equals(bankManager.getId())) {
-                            double managerWage = bankManager.getBalance() - bankManager.getMistakeCount() * 100;
-                            System.out.println("Bank Manager Wage Withdrawn: " + managerWage);
-                            bankManager.withdraw(managerWage);
-                        } else if (employeeId.equals(cashier.getId())) {
-                            double cashierWage = cashier.getBalance() + cashier.getTotalSales() * 0.01;
-                            System.out.println("Cashier Wage Withdrawn: " + cashierWage);
-                            cashier.withdraw(cashierWage);
-                        } else {
-                            System.out.println("Invalid Employee ID!");
-                        }
-                        break;
-
-                    case 8:
-                        return;
-
-                    case 9:
-                        System.out.println("Thank you for using the banking system!");
-                        System.exit(0);
-                        break;
-
-                    default:
-                        System.out.println("Invalid option!");
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input! Please enter a number.");
+                    scanner.nextLine(); // Clear the buffer
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Invalid input!");
+
+            switch (choice) {
+                case 1:
+                    System.out.println("\nPaycheck Details:");
+                    System.out.println("Manager - Name: " + bankManager.getName() + ", Paycheck: " + bankManager.getBalance());
+                    System.out.println("Cashier - Name: " + cashier.getName() + ", Paycheck: " + cashier.getBalance());
+                    break;
+
+                case 2:
+                    System.out.println("\nPenalty Details:");
+                    System.out.println("Manager - Name: " + bankManager.getName() + ", Mistakes Count: " + bankManager.getMistakeCount());
+                    System.out.println("Cashier - Name: " + cashier.getName() + ", Transactions Handled: " + cashier.getTransactionsHandled());
+                    break;
+
+                case 3:
+                    System.out.println("\nTotal Wage Balance:");
+                    bankManager.viewTotalWage();
+                    System.out.println("Cashier Wage Balance: " + cashier.getBalance());
+                    break;
+
+                case 4:
+                    System.out.println("\nEmployee Performance:");
+                    System.out.println("Manager - Name: " + bankManager.getName() + ", Loans Given: " + bankManager.getLoanGiven() +
+                            ", Mistakes: " + bankManager.getMistakeCount());
+                    System.out.println("Cashier - Name: " + cashier.getName() + ", Transactions: " + cashier.getTransactionsHandled() +
+                            ", Total Sales: " + cashier.getTotalSales());
+                    break;
+
+                case 5:
+                    System.out.println("\nWithdraw Wage:");
+                    System.out.print("Enter Employee ID (Manager: " + bankManager.getId() + ", Cashier: " + cashier.getId() + "): ");
+                    String employeeId = scanner.next();
+
+                    if (employeeId.equals(bankManager.getId())) {
+                        System.out.print("Enter Withdraw Amount for Manager: ");
+                        double amount = scanner.nextDouble();
+                        bankManager.withdrawPaycheck(amount);
+                    } else if (employeeId.equals(cashier.getId())) {
+                        System.out.print("Enter Withdraw Amount for Cashier: ");
+                        double amount = scanner.nextDouble();
+                        if (amount <= cashier.getBalance()) {
+                            cashier.paycheck(-amount);
+                            System.out.println("Withdrawn paycheck for Cashier: " + amount);
+                        } else {
+                            System.out.println("Insufficient balance for Cashier.");
+                        }
+                    } else {
+                        System.out.println("Invalid Employee ID!");
+                    }
+                    break;
+
+                case 6:
+                    return;
+
+                default:
+                    System.out.println("Invalid option!");
+            }
         }
+    } catch (Exception e) {
+        System.out.println("An error occurred in Employer Menu: " + e.getMessage());
     }
+}
 
     private static void adminMenu(Scanner scanner, Bank myBank, List<CustomerAccount> accounts, BankManager bankManager, Cashier cashier) {
         try {
