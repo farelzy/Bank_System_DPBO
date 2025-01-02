@@ -48,7 +48,7 @@ public class BankSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Bank myBank = new Bank("myBank");
+        Bank myBank = new Bank("Bank Jadi Apa");
         List<CustomerAccount> accounts = new ArrayList<>();
         SavingAccount savingAccount = new SavingAccount("John Doe", "SA001", 5000.0);
         CurrentAccount currentAccount = new CurrentAccount("Jane Smith", "CA001", 10000.0) {
@@ -70,7 +70,7 @@ public class BankSystem {
         cashierAccounts.add(cashier2);
         cashierAccounts.add(cashier3);
         
-        System.out.println("Welcome to " + myBank.getBankName() + " Banking System!");
+        System.out.println("+++++ Welcome to " + myBank.getBankName() + " Banking System! +++++");
         try {
             while (true) {
                 System.out.println("\nSelect user type:");
@@ -408,16 +408,18 @@ public class BankSystem {
                         }
                         break;
 
-                    case 2:
-                        System.out.print("\nEnter Account ID to Close: ");
-                        String accountIdToClose = scanner.next();
-                        CustomerAccount accountToClose = findAccountById(accounts, accountIdToClose);
+                        case 2:
+                            System.out.print("\nEnter Account ID to Close: ");
+                            String accountIdToClose = scanner.next();
+                            CustomerAccount accountToClose = findAccountById(accounts, accountIdToClose);
 
-                        if (accountToClose != null) {
-                            myBank.closeAccount(accountToClose);  // Close the account using Bank's method
-                        } else {
-                            System.out.println("Account not found!");
-                        }
+                            if (accountToClose != null) {
+                                accounts.remove(accountToClose); // Remove the account from the list
+                                myBank.closeAccount(accountToClose); // Call the Bank's method to process closure
+                                System.out.println("Account with ID " + accountIdToClose + " has been successfully removed.");
+                            } else {
+                                System.out.println("Account not found!");
+                            }
                         break;
 
                     case 3:
