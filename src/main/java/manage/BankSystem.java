@@ -60,8 +60,11 @@ public class BankSystem {
         accounts.add(currentAccount);
         accounts.add(loanAccount);
 
-        BankManager bankManager = new BankManager("Mike the Manager", "MGR001", "BM001", "Bank Customer", 30000.0, 5000.0, 0);
-        Cashier cashier = new Cashier("Sarah the Cashier", "CSR001", "CS001", "Bank Customer", 20000.0, 0, 0.0);
+        BankManager bankManager = new BankManager("Mike the Manager", "MGR001", "LA001", "Bank Customer", 30000.0, 5000.0, 0);
+        Cashier cashier = new Cashier("Sarah the Cashier", "CSR001", "SA001", "Bank Customer", 20000.0, 882, 0);
+        Cashier cashier2 = new Cashier("Bill Da La Rosa", "CSR001", "CA001", "Bank Customer", 20000.0, 482, 2);
+        Cashier cashier3 = new Cashier("Erwin Dasler", "CSR001", "LA001", "Bank Customer", 20000.0, 582, 0);
+        
 
         System.out.println("Welcome to " + myBank.getBankName() + " Banking System!");
         try {
@@ -275,12 +278,12 @@ public class BankSystem {
                 case 2:
                     System.out.println("\nPenalty Details:");
                     System.out.println("Manager - Name: " + bankManager.getName() + ", Mistakes Count: " + bankManager.getMistakeCount());
-                    System.out.println("Cashier - Name: " + cashier.getName() + ", Transactions Handled: " + cashier.getTransactionsHandled());
+                    System.out.println("Cashier - Name: " + cashier.getName() + ", Mistake Count: " + cashier.getMistake());
                     break;
 
                 case 3:
                     System.out.println("\nTotal Wage Balance:");
-                    bankManager.viewTotalWage();
+                    System.out.println("Bank Manager Wage Balance: " + bankManager.getBalance());
                     System.out.println("Cashier Wage Balance: " + cashier.getBalance());
                     break;
 
@@ -289,7 +292,7 @@ public class BankSystem {
                     System.out.println("Manager - Name: " + bankManager.getName() + ", Loans Given: " + bankManager.getLoanGiven() +
                             ", Mistakes: " + bankManager.getMistakeCount());
                     System.out.println("Cashier - Name: " + cashier.getName() + ", Transactions: " + cashier.getTransactionsHandled() +
-                            ", Total Sales: " + cashier.getTotalSales());
+                            ", Mistakes: " + cashier.getMistake());
                     break;
 
                 case 5:
