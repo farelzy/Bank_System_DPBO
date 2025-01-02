@@ -7,35 +7,45 @@ package manage;
  *
  * @author hafizh
  */
+
+
 public class Cashier extends EmployeeAccount {
     private int transactionsHandled;
-    private double totalSales;
+    private int mistake;
 
-    public Cashier(String name, String id, String accountNumber, String customer, double balance, int transactionsHandled, double totalSales) {
+    public Cashier(String name, String id, String accountNumber, String customer, double balance, int transactionsHandled, int mistake) {
         super(name, id, accountNumber, customer, balance);
         this.transactionsHandled = transactionsHandled;
-        this.totalSales = totalSales;
+        this.mistake = mistake;
     }
 
-    public void processTransaction(double saleAmount) {
-        totalSales += saleAmount;
-        transactionsHandled++;
-        System.out.println("Transaction processed. Sale amount: " + saleAmount);
-        System.out.println("Total sales: " + totalSales + ", Transactions handled: " + transactionsHandled);
+    public void withdrawPaycheck(double amount) {
+    if (amount <= getBalance()) {
+        paycheck(-amount);
+        System.out.println("Withdrawn paycheck: " + amount);
+    }else {
+        System.out.println("Insufficient balance.");
+       }
     }
-
+    
+    public void viewTotalWage() {
+        System.out.println("Total wage balance: " + getBalance());
+    }
+    
     public void showPerformance() {
         System.out.println("Cashier Performance:");
         System.out.println("Name: " + getName());
         System.out.println("Transactions Handled: " + transactionsHandled);
-        System.out.println("Total Sales: " + totalSales);
+        System.out.println("Total Mistake: " + mistake);
     }
 
     public int getTransactionsHandled() {
         return transactionsHandled;
     }
-
-    public double getTotalSales() {
-        return totalSales;
+    
+    public int getMistake(){
+        return mistake;
     }
 }
+
+
