@@ -42,8 +42,8 @@ public class BankSystem {
         System.out.println("Welcome to " + myBank.getBankName() + " System!");
         while (true) {
             System.out.println("\nMenu:");
-            System.out.println("1. Login to Customer Account");
-            System.out.println("2. Login to Employee Account");
+            System.out.println("1. Display All Accounts");
+            System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
             System.out.println("4. Take Loan");
             System.out.println("5. Repay Loan");
