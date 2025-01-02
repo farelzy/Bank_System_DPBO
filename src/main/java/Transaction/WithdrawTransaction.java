@@ -17,6 +17,7 @@ public class WithdrawTransaction extends Transaction {
     @Override
     public void process(double amount) {
         if (amount <= customerAccount.getBalance()) {
+            System.out.println("Inital Amount: " + customerAccount.getBalance());
             customerAccount.withdraw(amount); 
             System.out.println("Withdrawal Successful: " + amount);
             System.out.println("New Balance: " + customerAccount.getBalance());
