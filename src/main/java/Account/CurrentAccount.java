@@ -22,11 +22,9 @@ public class CurrentAccount extends CustomerAccount {
     }
 
     @Override
-    public boolean withdraw(double amount) {
+    public void withdraw(double amount) {
         if (balance >= amount) {
-            balance -= amount;
-            return true;
+            balance -= amount;   
         }
-        return false;
     } 
 }

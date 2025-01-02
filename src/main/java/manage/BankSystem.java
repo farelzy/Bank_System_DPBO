@@ -137,13 +137,14 @@ public class BankSystem {
                         System.out.print("Enter Withdraw Amount: ");
                         double withdrawAmount = scanner.nextDouble();
 
-                        if (withdrawAccount.withdraw(withdrawAmount)) {
+                        if (withdrawAccount.getBalance() >= withdrawAmount) {
                             WithdrawTransaction withdrawTransaction = new WithdrawTransaction(withdrawAccount, withdrawAccount.getBalance());
                             withdrawTransaction.process(withdrawAmount);
                             notificationService.sendNotification(new Customer(withdrawAccount.getAccountName(), withdrawAccount.getAccountID()),
                                     "Withdrawal of " + withdrawAmount + " successful.");
                         } else {
-                            System.out.println("Insufficient balance!");
+                            notificationService.sendNotification(new Customer(withdrawAccount.getAccountName(), withdrawAccount.getAccountID()),
+                                    "Insufficient funds for withdrawal of " + withdrawAmount + ".");
                         }
                     } else {
                         System.out.println("Account not found!");

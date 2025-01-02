@@ -36,11 +36,9 @@ public class SavingAccount extends CustomerAccount {
 //    }
 
     @Override
-    public boolean withdraw(double amount) {
+    public void withdraw(double amount) {
         if (balance >= amount) {
             balance -= amount;
-            return true;
         }
-        return false;
     }
 }
