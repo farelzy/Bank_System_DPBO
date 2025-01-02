@@ -11,6 +11,7 @@ package Account;
 public abstract class CustomerAccount {
     protected String accountName;
     protected String accountID;
+    private double interestRate = 1.7/100;
     protected double balance;
 
     public CustomerAccount(String accountName, String accountID, double balance) {
@@ -28,7 +29,7 @@ public abstract class CustomerAccount {
     }
 
     public double getBalance() {
-        return balance;
+        return balance + balance * interestRate;
     }
 
     public abstract void deposit(double amount);
