@@ -8,10 +8,10 @@ package Account;
  *
  * @author VICTUS
  */
-public class CurrentAccount extends CustomerAccount {
+public abstract class CurrentAccount extends CustomerAccount {
     
 
-    public CurrentAccount(String accountName, String accountID, double balance, double par1) {
+    public CurrentAccount(String accountName, String accountID, double balance) {
         super(accountName, accountID, balance);
     }
 
@@ -27,4 +27,10 @@ public class CurrentAccount extends CustomerAccount {
             balance -= amount;   
         }
     } 
+    
+    @Override
+    public double getBalance() {
+        interestRate = 1.5/100;
+        return balance + balance * interestRate;
+    }
 }
