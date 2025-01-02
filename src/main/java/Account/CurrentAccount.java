@@ -9,6 +9,7 @@ package Account;
  * @author VICTUS
  */
 public class CurrentAccount extends CustomerAccount {
+    
 
     public CurrentAccount(String accountName, String accountID, double balance, double par1) {
         super(accountName, accountID, balance);
@@ -27,5 +28,5 @@ public class CurrentAccount extends CustomerAccount {
             return true;
         }
         return false;
-    }
+    } 
 }
