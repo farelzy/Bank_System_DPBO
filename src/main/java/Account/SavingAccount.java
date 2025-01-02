@@ -12,11 +12,8 @@ import Account.CustomerAccount;
  */
 public class SavingAccount extends CustomerAccount {
 
-    private double interestRate;
-
-    public SavingAccount(String accountName, String accountID, double balance, double interestRate) {
+    public SavingAccount(String accountName, String accountID, double balance) {
         super(accountName, accountID, balance);
-        this.interestRate = interestRate;
     }
 
     @Override
@@ -31,5 +28,11 @@ public class SavingAccount extends CustomerAccount {
         if (balance >= amount) {
             balance -= amount;
         }
+    }
+    
+    @Override
+    public double getBalance() {
+        interestRate = 2.5/100;
+        return balance + balance * interestRate;
     }
 }

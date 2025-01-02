@@ -17,6 +17,7 @@ import Transaction.WithdrawTransaction;
 import Bank.Customer;
 import Bank.Bank;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
@@ -33,8 +34,12 @@ public class BankSystem {
     
     public static String generateAccountID(String prefix) {
         Random random = new Random();
-        int randomNumber = 20 + random.nextInt(980); // Menghasilkan angka antara 20 dan 999
+        int randomNumber = 20 + random.nextInt(980); 
         return prefix + randomNumber;
+    }
+    
+    public static String percentageInterestRate(double interestRate) {
+        return String.format("%.1f%%", interestRate * 100);
     }
     
     public static void main(String[] args) {
@@ -42,9 +47,9 @@ public class BankSystem {
         
         Bank myBank = new Bank("myBank");
         List<CustomerAccount> accounts = new ArrayList<>();
-        SavingAccount savingAccount = new SavingAccount("John Doe", "SA001", 5000.0, 0.05);
-        CurrentAccount currentAccount = new CurrentAccount("Jane Smith", "CA001", 10000.0, 0.02);
-        LoanAccount loanAccount = new LoanAccount("Alice Borrower", "LA001", 0.0, 20000.0);
+        SavingAccount savingAccount = new SavingAccount("John Doe", "SA001", 5000.0);
+        CurrentAccount currentAccount = new CurrentAccount("Jane Smith", "CA001", 10000.0) {};
+        LoanAccount loanAccount = new LoanAccount("Alice Borrower", "LA001", 0.0, 20000.0) {};
  
         accounts.add(savingAccount);
         accounts.add(currentAccount);
@@ -54,39 +59,56 @@ public class BankSystem {
         Cashier cashier = new Cashier("Sarah the Cashier", "CSR001", "CS001", "Bank Customer", 20000.0, 0, 0.0);
 
         System.out.println("Welcome to " + myBank.getBankName() + " Banking System!");
-        while (true) {
-            System.out.println("\nSelect user type:");
-            System.out.println("1. Log in as Customer");
-            System.out.println("2. Log in as Employer");
-            System.out.println("3. Log in as Admin");
-            System.out.println("4. Exit");
-            System.out.print("Choose an option: ");
-            int userType = scanner.nextInt();
+        try {
+            while (true) {
+                System.out.println("\nSelect user type:");
+                System.out.println("1. Log in as Customer");
+                System.out.println("2. Log in as Employer");
+                System.out.println("3. Log in as Admin");
+                System.out.println("4. Exit");
+                int userType = -1;
+                while (userType == -1) {
+                    System.out.print("Choose an option: ");
+                    try {
+                        userType = scanner.nextInt();
+                        if (userType < 1 || userType > 4) {
+                            System.out.println("Invalid option! Please choose a number between 1 and 4.");
+                            userType = -1;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input! Please enter a number.");
+                        scanner.nextLine();
+                    }
+                }
 
-            switch (userType) {
-                case 1: 
-                    customerMenu(scanner, accounts);
-                    break;
+                switch (userType) {
+                    case 1: 
+                        customerMenu(scanner, accounts);
+                        break;
 
-                case 2:
-                    employerMenu(scanner, bankManager, cashier);
-                    break;
-                case 3:
-                    adminMenu(scanner, myBank, accounts);
-                    break;
-                case 4:
-                    System.out.println("Thank you for using the banking system!");
-                    scanner.close();
-                    return;
+                    case 2:
+                        employerMenu(scanner, bankManager, cashier);
+                        break;
+                    case 3:
+                        adminMenu(scanner, myBank, accounts);
+                        break;
+                    case 4:
+                        System.out.println("Thank you for using the banking system!");
+                        scanner.close();
+                        return;
 
-                default:
-                    System.out.println("Invalid option!");
-            }
+                    default:
+                        System.out.println("Invalid option!");
+                }
+            } 
+        } catch (Exception e) {
+                System.out.println("invalid input");
         }
     }
     
 
     private static void customerMenu(Scanner scanner, List<CustomerAccount> accounts) {
+        try {
         while (true) {
             NotificationService notificationService = new NotificationService("Bank Notification");
             System.out.println("\nCustomer Menu:");
@@ -96,16 +118,32 @@ public class BankSystem {
             System.out.println("4. Take Loan");
             System.out.println("5. Repay Loan");
             System.out.println("6. Return to Main Menu");
+            System.out.println("7. Exit");
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-
-            switch (choice) {
+            
+            int userType = -1;
+                while (userType == -1) {
+                    System.out.print("Choose an option: ");
+                    try {
+                        userType = scanner.nextInt();
+                        if (userType < 1 || userType > 7) {
+                            System.out.println("Invalid option! Please choose a number between 1 and 7.");
+                            userType = -1;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input! Please enter a number.");
+                        scanner.nextLine();
+                    }
+                }
+            
+            switch (userType) {
                 case 1:
                     System.out.println("\nAccount List:");
                     for (CustomerAccount account : accounts) {
                         System.out.println("Account Name: " + account.getAccountName() +
                                 ", ID: " + account.getAccountID() +
-                                ", Balance: " + account.getBalance());
+                                ", Balance: " + account.getBalance() +
+                                ", Interest Rate: " + percentageInterestRate(account.getInterestRate()));
                     }
                     break;
 
@@ -181,14 +219,21 @@ public class BankSystem {
 
                 case 6:
                     return;
-
+                case 7: 
+                    System.out.println("Thank you for using the banking system!");
+                    scanner.close();
+                    break;
                 default:
                     System.out.println("Invalid option!");
+                }
             }
+            } catch (Exception e) {
+            System.out.println("invalid input");
         }
     }
 
     private static void employerMenu(Scanner scanner, BankManager bankManager, Cashier cashier) {
+        try {
         while (true) {
             System.out.println("\nEmployer Menu:");
             System.out.println("1. View Bank Manager Details");
@@ -196,9 +241,24 @@ public class BankSystem {
             System.out.println("3. Process Transaction by Cashier");
             System.out.println("4. Return to Main Menu");
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
+            
+            int userType = -1;
+                while (userType == -1) {
+                    System.out.print("Choose an option: ");
+                    try {
+                        userType = scanner.nextInt();
+                        if (userType < 1 || userType > 4) {
+                            System.out.println("Invalid option! Please choose a number between 1 and 4.");
+                            userType = -1;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input! Please enter a number.");
+                        scanner.nextLine();
+                    }
+                }
+            
 
-            switch (choice) {
+            switch (userType) {
                 case 1:
                     System.out.println("\nBank Manager Details:");
                     System.out.println("Name: " + bankManager.getName());
@@ -222,7 +282,7 @@ public class BankSystem {
                     double saleAmount = scanner.nextDouble();
                     cashier.processTransaction(saleAmount);
                     break;
-
+                    
                 case 4:
                     return;
 
@@ -230,16 +290,22 @@ public class BankSystem {
                     System.out.println("Invalid option!");
             }
         }
+        } catch (Exception e) {
+            System.out.println("invalid input");
+        }
     }
     
     private static void adminMenu(Scanner scanner, Bank myBank, List<CustomerAccount> accounts) {
+        try {
         while (true) {
             System.out.println("\nAdmin Menu:");
             System.out.println("1. Create Account");
             System.out.println("2. Close Account");
-            System.out.println("3. Return to Main Menu");
+            System.out.println("3. Show All Customer Accounts");
+            System.out.println("4. Return to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
+           
 
             switch (choice) {
                 case 1:
@@ -248,7 +314,21 @@ public class BankSystem {
                     System.out.println("2. Saving Account");
                     System.out.println("3. Loan Account");
                     System.out.print("Choose an option: ");
-                    int accountType = scanner.nextInt();
+                    
+                    int userType = -1;
+                    while (userType == -1) {
+                        System.out.print("Choose an option: ");
+                        try {
+                            userType = scanner.nextInt();
+                            if (userType < 1 || userType > 4) {
+                                System.out.println("Invalid option! Please choose a number between 1 and 4.");
+                                userType = -1;
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Invalid input! Please enter a number.");
+                            scanner.nextLine();
+                        }
+                    }
 
                     System.out.print("Enter Account Name: ");
                     String accountName = scanner.next();
@@ -256,20 +336,17 @@ public class BankSystem {
                     double balance = scanner.nextDouble();
 
                     CustomerAccount newAccount = null;
-                    switch (accountType) {
+                    switch (userType) {
                         case 1:
                             String accountID = generateAccountID("CA");
                             System.out.println("Generated Account ID: " + accountID);
-                            newAccount = new CurrentAccount(accountName, accountID, balance, 0.0);
+                            newAccount = new CurrentAccount(accountName, accountID, balance) {};
                             accounts.add(newAccount);
                             break;
                         case 2:
                             accountID = generateAccountID("SA");
-                            System.out.println("Generated Account ID: " + accountID);
-                        {
-                            double interestRate = 1.7/100;
-                            newAccount = new SavingAccount(accountName, accountID, balance, interestRate);
-                        }
+                            System.out.println("Generated Account ID: " + accountID);             
+                            newAccount = new SavingAccount(accountName, accountID, balance);
                             accounts.add(newAccount);
                             break;
 
@@ -278,7 +355,7 @@ public class BankSystem {
                             System.out.println("Generated Account ID: " + accountID);
                             System.out.print("Enter Loan Limit: ");
                             double loanLimit = scanner.nextDouble();
-                            newAccount = new LoanAccount(accountName, accountID, balance, loanLimit);
+                            newAccount = new LoanAccount(accountName, accountID, balance, loanLimit) {};
                             accounts.add(newAccount);
                             break;
                         default:
@@ -304,11 +381,23 @@ public class BankSystem {
                     break;
 
                 case 3:
+                    System.out.println("\nAccount List:");
+                    for (CustomerAccount account : accounts) {
+                        System.out.println("Account Name: " + account.getAccountName() +
+                                ", ID: " + account.getAccountID() +
+                                ", Balance: " + account.getBalance());
+                    }
+                    break;
+                    
+                case 4:
                     return;
 
                 default:
                     System.out.println("Invalid option!");
             }
+        }
+        } catch (Exception e) {
+            System.out.println("invalid input");
         }
     }
 }

@@ -10,9 +10,10 @@ import Account.CustomerAccount;
  *
  * @author VICTUS
  */
-public class LoanAccount extends CustomerAccount {
+public abstract class LoanAccount extends CustomerAccount {
 
     private double loanLimit;
+    
 
     public LoanAccount(String accountName, String accountID, double balance, double loanLimit) {
         super(accountName, accountID, balance);
@@ -47,5 +48,11 @@ public class LoanAccount extends CustomerAccount {
         if (balance >= amount) {
             balance -= amount;
         }
+    }
+    
+    @Override
+    public double getBalance() {
+        interestRate = 1.7/100;
+        return balance + balance * interestRate;
     }
 }
