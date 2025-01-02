@@ -18,5 +18,6 @@ public class DepositTransaction extends Transaction {
     public void process(double amount) {
         balance += amount;
         System.out.println("Deposit Successful: " + amount);
+        System.out.println("Total Amount: " + customerAccount.getBalance());
     }
 }

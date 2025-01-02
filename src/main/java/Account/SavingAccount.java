@@ -21,19 +21,10 @@ public class SavingAccount extends CustomerAccount {
 
     @Override
     public void deposit(double amount) {
+        System.out.println("Inital Amount: " + getBalance());
         balance += amount;
         System.out.println("Deposit to Saving Account: " + amount);
     }
-
-//    @Override
-//    public void withdraw(double amount) {
-//        if (amount <= balance) {
-//            balance -= amount;
-//            System.out.println("Withdraw from Saving Account: " + amount);
-//        } else {
-//            System.out.println("Insufficient Balance in Saving Account.");
-//        }
-//    }
 
     @Override
     public void withdraw(double amount) {
