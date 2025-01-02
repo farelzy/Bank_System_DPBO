@@ -107,8 +107,8 @@ public class BankSystem {
     }
     
 
-    private static void customerMenu(Scanner scanner, List<CustomerAccount> accounts) {
-        try {
+private static void customerMenu(Scanner scanner, List<CustomerAccount> accounts) {
+    try {
         while (true) {
             NotificationService notificationService = new NotificationService("Bank Notification");
             System.out.println("\nCustomer Menu:");
@@ -122,19 +122,19 @@ public class BankSystem {
             System.out.print("Choose an option: ");
             
             int userType = -1;
-                while (userType == -1) {
-                    System.out.print("Choose an option: ");
-                    try {
-                        userType = scanner.nextInt();
-                        if (userType < 1 || userType > 7) {
-                            System.out.println("Invalid option! Please choose a number between 1 and 7.");
-                            userType = -1;
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Invalid input! Please enter a number.");
-                        scanner.nextLine();
+            while (userType == -1) {
+                System.out.print("Choose an option: ");
+                try {
+                    userType = scanner.nextInt();
+                    if (userType < 1 || userType > 7) {
+                        System.out.println("Invalid option! Please choose a number between 1 and 7.");
+                        userType = -1;
                     }
+                } catch (Exception e) {
+                    System.out.println("Invalid input! Please enter a number.");
+                    scanner.nextLine(); // Clear the buffer
                 }
+            }
             
             switch (userType) {
                 case 1:
@@ -222,16 +222,15 @@ public class BankSystem {
                 case 7: 
                     System.out.println("Thank you for using the banking system!");
                     scanner.close();
-                    break;
+                    return;
                 default:
                     System.out.println("Invalid option!");
-                }
             }
-            } catch (Exception e) {
-            System.out.println("invalid input");
         }
+    } catch (Exception e) {
+        System.out.println("Invalid input");
     }
-
+}
     private static void employerMenu(Scanner scanner, BankManager bankManager, Cashier cashier) {
         try {
         while (true) {
