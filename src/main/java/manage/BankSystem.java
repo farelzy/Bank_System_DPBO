@@ -19,6 +19,7 @@ import Bank.Bank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
 
 public class BankSystem {
     private static CustomerAccount findAccountById(List<CustomerAccount> accounts, String accountId) {
@@ -28,6 +29,12 @@ public class BankSystem {
             }
         }
         return null;
+    }
+    
+    public static String generateAccountID(String prefix) {
+        Random random = new Random();
+        int randomNumber = 20 + random.nextInt(980); // Menghasilkan angka antara 20 dan 999
+        return prefix + randomNumber;
     }
     
     public static void main(String[] args) {
@@ -77,6 +84,7 @@ public class BankSystem {
             }
         }
     }
+    
 
     private static void customerMenu(Scanner scanner, List<CustomerAccount> accounts) {
         while (true) {
@@ -243,24 +251,30 @@ public class BankSystem {
 
                     System.out.print("Enter Account Name: ");
                     String accountName = scanner.next();
-                    System.out.print("Enter Account ID: ");
-                    String accountID = scanner.next();
                     System.out.print("Enter Initial Balance: ");
                     double balance = scanner.nextDouble();
 
                     CustomerAccount newAccount = null;
                     switch (accountType) {
                         case 1:
+                            String accountID = generateAccountID("CA");
+                            System.out.println("Generated Account ID: " + accountID);
                             newAccount = new CurrentAccount(accountName, accountID, balance, 0.0);
                             accounts.add(newAccount);
                             break;
                         case 2:
-                            System.out.print("Enter Interest Rate: ");
-                            double interestRate = scanner.nextDouble();
+                            accountID = generateAccountID("SA");
+                            System.out.println("Generated Account ID: " + accountID);
+                        {
+                            double interestRate = 1.7/100;
                             newAccount = new SavingAccount(accountName, accountID, balance, interestRate);
+                        }
                             accounts.add(newAccount);
                             break;
+
                         case 3:
+                            accountID = generateAccountID("LA");
+                            System.out.println("Generated Account ID: " + accountID);
                             System.out.print("Enter Loan Limit: ");
                             double loanLimit = scanner.nextDouble();
                             newAccount = new LoanAccount(accountName, accountID, balance, loanLimit);
@@ -297,5 +311,3 @@ public class BankSystem {
         }
     }
 }
-
-
