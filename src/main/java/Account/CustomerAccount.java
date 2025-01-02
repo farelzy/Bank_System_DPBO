@@ -34,5 +34,5 @@ public abstract class CustomerAccount {
 
     public abstract void deposit(double amount);
 
-    public abstract boolean withdraw(double amount);
+    public abstract void withdraw(double amount);
 }
