@@ -61,17 +61,21 @@ public class BankSystem {
         accounts.add(loanAccount);
 
         BankManager bankManager = new BankManager("Mike the Manager", "MGR001", "LA001", "Bank Customer", 30000.0, 5000.0, 0);
+        List<Cashier> cashierAccounts = new ArrayList<>();
         Cashier cashier = new Cashier("Sarah the Cashier", "CSR001", "SA001", "Bank Customer", 20000.0, 882, 0);
         Cashier cashier2 = new Cashier("Bill Da La Rosa", "CSR001", "CA001", "Bank Customer", 20000.0, 482, 2);
         Cashier cashier3 = new Cashier("Erwin Dasler", "CSR001", "LA001", "Bank Customer", 20000.0, 582, 0);
         
-
+        cashierAccounts.add(cashier);
+        cashierAccounts.add(cashier2);
+        cashierAccounts.add(cashier3);
+        
         System.out.println("Welcome to " + myBank.getBankName() + " Banking System!");
         try {
             while (true) {
                 System.out.println("\nSelect user type:");
                 System.out.println("1. Log in as Customer");
-                System.out.println("2. Log in as Employer");
+                System.out.println("2. Log in as Employee");
                 System.out.println("3. Log in as Admin");
                 System.out.println("4. Exit");
                 int userType = -1;
@@ -95,7 +99,7 @@ public class BankSystem {
                         break;
 
                     case 2:
-                        employerMenu(scanner, bankManager, cashier);
+                        employeeMenu(scanner, bankManager, cashierAccounts);
                         break;
                     case 3:
                         adminMenu(scanner, myBank, accounts, bankManager, cashier);
@@ -119,13 +123,11 @@ public class BankSystem {
             while (true) {
                 NotificationService notificationService = new NotificationService("Bank Notification");
                 System.out.println("\nCustomer Menu:");
-                System.out.println("1. Display All Accounts");
-                System.out.println("2. Deposit");
-                System.out.println("3. Withdraw");
-                System.out.println("4. Take Loan");
-                System.out.println("5. Repay Loan");
-                System.out.println("6. Return to Main Menu");
-                System.out.println("7. Exit");
+                System.out.println("1. Deposit");
+                System.out.println("2. Withdraw");
+                System.out.println("3. Take Loan");
+                System.out.println("4. Repay Loan");
+                System.out.println("5. Return to Main Menu");
                 System.out.print("Choose an option: ");
 
                 int userType = -1;
@@ -133,7 +135,7 @@ public class BankSystem {
                     System.out.print("Choose an option: ");
                     try {
                         userType = scanner.nextInt();
-                        if (userType < 1 || userType > 7) {
+                        if (userType < 1 || userType > 5) {
                             System.out.println("Invalid option! Please choose a number between 1 and 7.");
                             userType = -1;
                         }
@@ -145,20 +147,6 @@ public class BankSystem {
 
                 switch (userType) {
                     case 1:
-                        System.out.print("\nEnter Account ID: ");
-                        String accountId = scanner.next();
-
-                        for (CustomerAccount account : accounts) {
-                            if (account.getAccountID().equals(accountId)) {
-                                System.out.println("Account Name: " + account.getAccountName()
-                                        + ", ID: " + account.getAccountID()
-                                        + ", Balance: " + account.getBalance()
-                                        + ", Interest Rate: " + percentageInterestRate(account.getInterestRate()));
-                                return;
-                            }
-                        }
-
-                    case 2:
                         System.out.print("\nEnter Account ID: ");
                         String depositId = scanner.next();
                         CustomerAccount depositAccount = findAccountById(accounts, depositId);
@@ -177,7 +165,7 @@ public class BankSystem {
                         }
                         break;
 
-                    case 3:
+                    case 2:
                         System.out.print("\nEnter Account ID: ");
                         String withdrawId = scanner.next();
                         CustomerAccount withdrawAccount = findAccountById(accounts, withdrawId);
@@ -200,7 +188,7 @@ public class BankSystem {
                         }
                         break;
 
-                    case 4:
+                    case 3:
                         System.out.print("\nEnter Account ID: ");
                         String loanId = scanner.next();
                         CustomerAccount loanAccount = findAccountById(accounts, loanId);
@@ -214,7 +202,7 @@ public class BankSystem {
                         }
                         break;
 
-                    case 5:
+                    case 4:
                         System.out.print("\nEnter Account ID: ");
                         String repayId = scanner.next();
                         CustomerAccount repayAccount = findAccountById(accounts, repayId);
@@ -228,10 +216,7 @@ public class BankSystem {
                         }
                         break;
 
-                    case 6:
-                        return;
-                    case 7:
-                        System.out.println("Thank you for using the banking system!");
+                    case 5:
                         return;
                     default:
                         System.out.println("Invalid option!");
@@ -242,7 +227,7 @@ public class BankSystem {
         }
     }
 
-    private static void employerMenu(Scanner scanner, BankManager bankManager, Cashier cashier) {
+    private static void employeeMenu(Scanner scanner, BankManager bankManager, List<Cashier> cashierAccounts) {
     try {
         while (true) {
             System.out.println("\nEmployer Menu:");
@@ -272,49 +257,71 @@ public class BankSystem {
                 case 1:
                     System.out.println("\nPaycheck Details:");
                     System.out.println("Manager - Name: " + bankManager.getName() + ", Paycheck: " + bankManager.getBalance());
-                    System.out.println("Cashier - Name: " + cashier.getName() + ", Paycheck: " + cashier.getBalance());
+                    for (Cashier cashier : cashierAccounts) {
+                        System.out.println("Cashier - Name: " + cashier.getName() + ", Paycheck: " + cashier.getBalance());
+                    }
                     break;
 
                 case 2:
                     System.out.println("\nPenalty Details:");
                     System.out.println("Manager - Name: " + bankManager.getName() + ", Mistakes Count: " + bankManager.getMistakeCount());
-                    System.out.println("Cashier - Name: " + cashier.getName() + ", Mistake Count: " + cashier.getMistake());
+                    for (Cashier cashier : cashierAccounts) {
+                        System.out.println("Cashier - Name: " + cashier.getName() + ", Mistake Count: " + cashier.getMistake());
+                    }
                     break;
 
                 case 3:
                     System.out.println("\nTotal Wage Balance:");
                     System.out.println("Bank Manager Wage Balance: " + bankManager.getBalance());
-                    System.out.println("Cashier Wage Balance: " + cashier.getBalance());
+                    for (Cashier cashier : cashierAccounts) {
+                        System.out.println("Cashier Wage Balance: " + cashier.getBalance());
+                    }
                     break;
 
                 case 4:
                     System.out.println("\nEmployee Performance:");
                     System.out.println("Manager - Name: " + bankManager.getName() + ", Loans Given: " + bankManager.getLoanGiven() +
                             ", Mistakes: " + bankManager.getMistakeCount());
-                    System.out.println("Cashier - Name: " + cashier.getName() + ", Transactions: " + cashier.getTransactionsHandled() +
+                    for (Cashier cashier : cashierAccounts) {
+                        System.out.println("Cashier - Name: " + cashier.getName() + ", Transactions: " + cashier.getTransactionsHandled() +
                             ", Mistakes: " + cashier.getMistake());
+                    }
                     break;
 
                 case 5:
                     System.out.println("\nWithdraw Wage:");
-                    System.out.print("Enter Employee ID (Manager: " + bankManager.getId() + ", Cashier: " + cashier.getId() + "): ");
+                    System.out.print("Enter Employee ID (Manager: " + bankManager.getId() + ", Cashiers: ");
+                    for (Cashier cashier : cashierAccounts) {
+                        System.out.print(cashier.getId() + " ");
+                    }
+                    System.out.println("): ");
                     String employeeId = scanner.next();
 
                     if (employeeId.equals(bankManager.getId())) {
                         System.out.print("Enter Withdraw Amount for Manager: ");
                         double amount = scanner.nextDouble();
                         bankManager.withdrawPaycheck(amount);
-                    } else if (employeeId.equals(cashier.getId())) {
-                        System.out.print("Enter Withdraw Amount for Cashier: ");
-                        double amount = scanner.nextDouble();
-                        if (amount <= cashier.getBalance()) {
-                            cashier.paycheck(-amount);
-                            System.out.println("Withdrawn paycheck for Cashier: " + amount);
-                        } else {
-                            System.out.println("Insufficient balance for Cashier.");
-                        }
                     } else {
-                        System.out.println("Invalid Employee ID!");
+                        Cashier targetCashier = null;
+                        for (Cashier cashier : cashierAccounts) {
+                            if (cashier.getId().equals(employeeId)) {
+                                targetCashier = cashier;
+                                break;
+                            }
+                        }
+
+                        if (targetCashier != null) {
+                            System.out.print("Enter Withdraw Amount for Cashier: ");
+                            double amount = scanner.nextDouble();
+                            if (amount <= targetCashier.getBalance()) {
+                                targetCashier.paycheck(-amount);
+                                System.out.println("Withdrawn paycheck for Cashier: " + targetCashier.getName() + ", Amount: " + amount);
+                            } else {
+                                System.out.println("Insufficient balance for Cashier.");
+                            }
+                        } else {
+                            System.out.println("Invalid Employee ID!");
+                        }
                     }
                     break;
 
