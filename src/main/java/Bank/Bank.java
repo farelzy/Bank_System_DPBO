@@ -24,21 +24,13 @@ public class Bank {
         return bankName;
     }
     
-    public void generateReport(){
-        
-    }
-    
-    public void createAccount(CustomerAccount Newaccount){//ganti parameter
+    public void createAccount(CustomerAccount Newaccount){
         account.add(Newaccount);
     }
     
-    public void closeAccount(CustomerAccount exisitingaccount){//ganti parameter dan pop to remove
+    public void closeAccount(CustomerAccount exisitingaccount){
         account.remove(exisitingaccount);
         System.out.println("Account under the name of " + account +" successfully deleted");
-        
-    }
-    
-    public void showAccountDetails(){
         
     }
 }

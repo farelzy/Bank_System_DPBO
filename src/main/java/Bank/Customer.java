@@ -8,7 +8,7 @@ package Bank;
  *
  * @author msi_k
  */
-public abstract class Customer {
+public class Customer {
     private String name;
     private String id;
     
